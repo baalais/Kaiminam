@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vintage Auto Restaurācija | Raganā</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #121212;
+            --gold: #C9A769;
+            --gold-light: #E8D9B5;
+            --text-light: #F5F5F5;
+            --text-gray: #CCCCCC;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Raleway', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+            color: var(--gold);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            background-color: rgba(18, 18, 18, 0.95);
+            padding: 15px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gold);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+        
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 300;
+            letter-spacing: 1px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--gold);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        /* Hero section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+            z-index: -1;
+        }
+        
+        .hero-bg:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+        
+        .hero-content {
+            max-width: 600px;
+        }
+        
+        .hero h1 {
+            font-size: 64px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            color: var(--text-gray);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: transparent;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: var(--gold);
+            color: var(--bg-dark);
+        }
+        
+        /* About section */
+        .section {
+            padding: 120px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .section-title h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+        
+        .section-title .divider {
+            width: 80px;
+            height: 2px;
+            background-color: var(--gold);
+            margin: 0 auto;
+        }
+        
+        .about-content {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--text-gray);
+        }
+        
+        .about-image {
+            flex: 1;
+            height: 500px;
+            background: url('https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80') no-repeat center center/cover;
+        }
+        
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+        
+        .service-card {
+            padding: 40px;
+            border: 1px solid rgba(201, 167, 105, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .service-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-10px);
+        }
+        
+        .service-card h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .service-card h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--gold);
+        }
+        
+        .service-card p {
+            color: var(--text-gray);
+        }
+        
+        /* Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            height: 400px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Contact */
+        .contact-container {
+            display: flex;
+            gap: 60px;
+        }
+        
+        .contact-info {
+            flex: 1;
+        }
+        
+        .contact-info h3 {
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+        
+        .contact-info p {
+            margin-bottom: 15px;
+            color: var(--text-gray);
+        }
+        
+        .contact-info .info-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .contact-info .info-item i {
+            color: var(--gold);
+            font-size: 20px;
+        }
+        
+        .contact-form {
+            flex: 1;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-gray);
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: transparent;
+            border: 1px solid rgba(201, 167, 105, 0.3);
+            color: var(--text-light);
+            font-family: 'Raleway', sans-serif;
+        }
+        
+        .form-group textarea {
+            height: 150px;
+            resize: none;
+        }
+        
+        .submit-btn {
+            background-color: var(--gold);
+            color: var(--bg-dark);
+            border: none;
+            padding: 15px 40px;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--gold-light);
+        }
+        
+        /* Footer */
+        footer {
+            padding: 60px 0;
+            text-align: center;
+            border-top: 1px solid rgba(201, 167, 105, 0.1);
+        }
+        
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 30px;
+            display: inline-block;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .social-links a {
+            color: var(--text-gray);
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--gold);
+        }
+        
+        .copyright {
+            color: var(--text-gray);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <a href="#" class="logo">VINTAGE AUTO</a>
+            <nav class="nav-links">
+                <a href="#about">Par mums</a>
+                <a href="#services">Pakalpojumi</a>
+                <a href="#gallery">Galerija</a>
+                <a href="#contact">Kontakti</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>Auto restaurācija ar meistaru rokas pieskārienu</h1>
+                <p>Klasisko un retu auto rūsas noņemšana, metāla restaurācija un pilnīga atjaunošana. Katrs projekts - kā mākslas darbs.</p>
+                <a href="#contact" class="btn">Pieteikties konsultācijai</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Par mums</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Restaurācijas darbnīca ar 20 gadu pieredzi</h3>
+                    <p>Mūsu darbnīca Raganā specializējas klasisko un kolekcionējamo auto pilnīgā restaurācijā. Mēs ne tikai noņemam rūsu, bet atjaunojam auto tā, lai tas atgrieztos savā oriģinālajā formā.</p>
+                    <p>Katrs projekts tiek veikts ar maksimālu rūpību un precizitāti, izmantojot tikai augstākās kvalitātes materiālus un aprīkojumu.</p>
+                    <p>Mūsu komandā strādā pieredzējuši metinātāji, virsmu apstrādes speciālisti un auto dizaineri, kuri zina, kā padarīt jūsu auto par īstu rotallietu.</p>
+                </div>
+                <div class="about-image"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Mūsu pakalpojumi</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Rūsas diagnostika</h3>
+                    <p>Pilnīga auto diagnostika, izmantojot modernus instrumentus, lai identificētu visus korozijas bojājumus, ieskaitot slēptās zonas.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Metāla restaurācija</h3>
+                    <p>Bojāto detaļu izgriešana un nomaiņa, metināšana, virsmu sagatavošana. Katra detaļa tiek apstrādāta ar maksimālu precizitāti.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Antikorozijas apstrāde</h3>
+                    <p>Vairāku slāņu aizsardzības apstrāde, kas nodrošina ilgstošu rezultātu un aizsargā auto no jaunas rūsas veidošanās.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Krāsošana</h3>
+                    <p>Augstas kvalitātes krāsošana, izmantojot profesionālas krāsas un tehnoloģijas. Iespējama gan oriģinālā krāsa, gan jauna krāsu shēma.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Interjera restaurācija</h3>
+                    <p>Sēdekļu, instrumentu panelu un citu interjera detaļu atjaunošana, saglabājot oriģinālo stilu un kvalitāti.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Pilna auto restaurācija</h3>
+                    <p>Komplekss auto atjaunošanas process no A līdz Z, ieskaitot tehnisko daļu, virsbūvi un interjeru.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="section" id="gallery">
+        <div class="container">
+            <div class="section-title">
+                <h2>Mūsu darbi</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1597938430461-6c9e0a1f7615?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Auto restaurācija">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1600861195091-690c92f1d2cc?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Metāla remonts">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1600861195452-c20faa5c5b00?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Krāsošana">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Restaurēts auto">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Darbnīca">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Restaurēts sports auto">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Kontakti</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Sazinieties ar mums</h3>
+                    <p>Vēlies uzzināt vairāk par mūsu pakalpojumiem vai rezervēt diagnostiku? Sazinies, mēs ar prieku atbildēsim uz visiem jautājumiem.</p>
+                    
+                    <div class="info-item">
+                        <i>📍</i>
+                        <span>Raganā, Latvija</span>
+                    </div>
+                    <div class="info-item">
+                        <i>📞</i>
+                        <span>+371 12345678</span>
+                    </div>
+                    <div class="info-item">
+                        <i>✉️</i>
+                        <span>info@vintageauto.lv</span>
+                    </div>
+                    
+                    <p>Darba laiks: P-P 9:00-18:00</p>
+                </div>
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Vārds</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-pasts</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Telefons</label>
+                            <input type="tel" id="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Ziņa</label>
+                            <textarea id="message" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Nosūtīt ziņu</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <a href="#" class="footer-logo">VINTAGE AUTO</a>
+            <div class="social-links">
+                <a href="#">FB</a>
+                <a href="#">IG</a>
+                <a href="#">YT</a>
+            </div>
+            <p class="copyright">© 2024 Vintage Auto Restaurācija. Visas tiesības aizsargātas.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Sticky header
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
